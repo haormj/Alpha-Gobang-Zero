@@ -69,11 +69,11 @@ class AlphaZeroMCTS:
                         np.random.dirichlet(0.03*np.ones(len(p)))
                 node.expand(zip(board.available_actions, p))
             elif winner is not None:
-                value = 1 if winner == board.current_player else -1
+                value = 1 if winner == chess_board.current_player else -1
             else:
                 value = 0
             # 反向传播
-            node.backup(-value)
+            node.backup(value)
 
         # 计算 π，在自我博弈状态下：游戏的前三十步，温度系数为 1，后面的温度系数趋于无穷小
         T = 1 if self.is_self_play and len(chess_board.state) <= 30 else 1e-3
